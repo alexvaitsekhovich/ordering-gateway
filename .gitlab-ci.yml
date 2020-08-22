@@ -1,0 +1,10 @@
+stages:
+  - deploy
+
+push to docker:
+  stage: deploy
+  image: openjdk:12-alpine
+  script:
+    - ./mvnw clean compile jib:build -Djib.to.auth.username=alexvaitsekhovich -Djib.to.auth.password="${DOCKERHUB_PASSWORD}"
+  only:
+    - master
